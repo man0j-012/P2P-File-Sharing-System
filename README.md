@@ -1,123 +1,47 @@
 P2P File Sharing System
-This project implements a simple Peer-to-Peer (P2P) file sharing system that includes a central indexing server and multiple peers. Peers can register files, search for files, and download files from other peers. Additionally, a performance testing module is included to evaluate the behavior of the system.
+This project implements a Peer-to-Peer (P2P) file-sharing system using Java. The system comprises a central indexing server and several peer clients, each functioning as a client and a server. Peers can register files, search for files across other peers, and download files from them. The system also includes a performance tester to measure the system's behavior under different load conditions, such as sequential and concurrent file requests.
 
-Features
-Central Indexing Server:
+System Overview
+The project consists of two main components:
 
-Registers peers and their shared files.
-Searches for files in the registered peers.
-Deregisters peers and their files.
-Peers:
+Indexing Server: The central server that keeps track of all registered peers and the files they are sharing. The indexing server manages peer registration, search, and deregistration requests. Peers connect to the indexing server to register their files, search for available files, and request a list of peers with the desired file.
 
-Acts as both a client and a server.
-Registers its files with the indexing server.
-Searches for files in the indexing server and downloads them from other peers.
-Monitors a directory for file changes and updates the indexing server automatically.
-Directory Monitoring:
+Peer Clients and Servers: Each peer operates as a client (which can request files from peers) and a server (which can provide files to others). Peers can:
 
-Each peer monitors a shared folder for file additions or deletions and updates the indexing server accordingly.
-Performance Testing:
+Register the files they are sharing with the indexing server.
+Search for files that other peers are sharing.
+Download files from other peers that are sharing the requested file.
+Each peer also includes a directory watcher service, which monitors the shared directory for file additions or deletions and updates the indexing server when changes occur.
 
-Measures the response time for sequential and concurrent requests to the indexing server.
-Outputs response time statistics and visual plots for performance analysis.
 Project Structure
-bash
+The project files are organized into different directories for ease of understanding and separation of concerns. The main components of the project include:
 
-Requirements
-Java 8+: Ensure Java is installed on your system.
-IntelliJ IDEA (or any other IDE with Java support).
-Git: To manage version control and push to GitHub.
-Setup Instructions
-Clone the Repository:
+Indexing Server: The system's core manages the directory of shared files and peers. It handles peer requests such as file registration, search, and deregistration.
+Peer Clients: Each can register its shared files with the indexing server, search for files, and download them from others.
+Performance Tester: This component tests the system's performance by measuring response times for sequential and concurrent requests and logging the results for analysis.
+Setting Up the System
+Before running the system, please ensure you have Java installed on your machine and any required development tools like IntelliJ IDEA. The project files should be opened and compiled within the IDE, ensuring all dependencies are correctly configured.
 
-bash
-Copy code
-git clone https://github.com/your-username/P2PFileSharing.git
-cd P2PFileSharing
-Open in IntelliJ:
+Once the project is compiled, the system can run in several steps. First, the indexing server should be started, which will begin listening for connections from peers. After the server runs, the peer clients should be launched, each of which will register their files and be ready to serve or request files.
 
-Import the project into IntelliJ as a Maven or Gradle project (if applicable) or as a simple Java project.
-Compile the Code:
+Running the System
+To use the system, the following steps are typically followed:
 
-Go to the src folder and compile the files using IntelliJ's "Build" option or use the following command:
-bash
-Copy code
-javac -d bin src/server/IndexingServer.java src/peer/PeerClient.java src/peer/PeerServer.java
-How to Run the Program
-Start the Indexing Server:
+Start the Indexing Server: The indexing server listens for incoming peer connections and processes file registration, search, and deregistration requests.
+Start the Peer Servers: Each peer acts as a server that can send files to other peers. These peer servers should be started, each on its port.
+Start the Peer Clients: Peer clients connect to the indexing server, registering their shared files, searching for available files, and downloading them from peers. The peer clients also monitor their directories for any changes and keep the indexing server updated.
+Once the system is running, a peer client can interact with the system by searching for files and downloading them from other peers. The peers can be started in any order, and each peer operates independently.
 
-bash
-Copy code
-java -cp bin server.IndexingServer
-The server listens on port 5000.
-
-Start Peer Servers: Each peer server listens for file requests on a different port.
-
-Peer 1:
-
-bash
-Copy code
-java -cp bin peer.PeerServer
-Peer 2:
-
-bash
-Copy code
-java -cp bin peer.PeerServer2
-Peer 3:
-
-bash
-Copy code
-java -cp bin peer.PeerServer3
-Start Peer Clients: Each peer client can register files and search for files on the indexing server.
-
-Peer 1:
-
-bash
-Copy code
-java -cp bin peer.PeerClientMain
-Peer 2:
-
-bash
-Copy code
-java -cp bin peer.PeerClientMain2
-Peer 3:
-
-bash
-Copy code
-java -cp bin peer.PeerClientMain3
-Perform File Search and Download: In the Peer Client terminal:
-
-Choose option 1 to search for a file.
-Enter the filename, and if found, it will be downloaded from another peer.
 Performance Testing
-You can measure the response time for sequential and concurrent requests.
+The system includes a Performance Tester to evaluate how the system handles various loads. This includes measuring the response time for sequential file requests (one request at a time) and concurrent file requests (multiple peers requesting files simultaneously). The test results are logged in a CSV file and can be analyzed for further insights into system performance.
 
-Run the Performance Tester:
+Testing Example
+A simple test case involves starting the indexing server and launching several peers. One peer registers a file, and another searches for and downloads that file. The system prints messages indicating the progress of each operation, such as the number of peers found for a particular file and whether a file was successfully downloaded.
 
-bash
-Copy code
-java -cp bin peer.PerformanceTester localhost 5000 file1.txt 500 100 performance_log.csv
-This will log the performance of 500 sequential and 100 concurrent requests.
+Known Limitations and Future Improvements
+There are a few known limitations in the current implementation:
 
-View the Results: Check the performance_log.csv for response times. You can also generate plots using a Python script or any other plotting tool.
+If a peer goes offline during a file download, there is no automatic retry from another peer offering the same file.
+The system's performance may degrade under extremely high concurrent loads.
+Potential improvements to the system include adding more advanced file search algorithms, improving fault tolerance (e.g., retries or failover strategies), and allowing peers to communicate with each other directly without relying on the central indexing server. Additionally, file transfer efficiency could be improved by introducing compression or parallel download features.
 
-Example Output
-mathematica
-Copy code
-Choose an action:
-1. Search and Download a File
-2. Exit
-Enter choice: 1
-Enter filename to search: file1.txt
-Found 3 peer(s) with the file.
-Downloading from Peer2 at localhost:6001
-Receiving file of size 3402 bytes.
-File file1.txt downloaded successfully.
-Potential Improvements
-Implement more sophisticated file search algorithms (e.g., partial match, fuzzy search).
-Introduce peer-to-peer communication without a central server for a fully decentralized model.
-Improve file transfer efficiency by adding compression or parallel downloads.
-Add fault tolerance to handle peer failures during downloads.
-Known Issues
-If a peer fails during a download, the client doesn't automatically retry other peers with the same file.
-Response times may vary significantly depending on network latency and system load.
