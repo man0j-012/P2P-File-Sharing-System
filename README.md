@@ -22,24 +22,7 @@ Measures the response time for sequential and concurrent requests to the indexin
 Outputs response time statistics and visual plots for performance analysis.
 Project Structure
 bash
-Copy code
-P2PFileSharingSystem/
-├── src/
-│   ├── common/
-│   │   └── PeerInfo.java              # Peer metadata (ID, IP, Port, Bandwidth)
-│   ├── server/
-│   │   └── IndexingServer.java        # Central indexing server
-│   │   └── ClientHandler.java         # Handles individual client connections
-│   ├── peer/
-│   │   └── PeerClient.java            # Peer client to register, search, and download files
-│   │   └── PeerClientMain.java        # Main class for Peer1 operations
-│   │   └── PeerClientMain2.java       # Main class for Peer2 operations
-│   │   └── PeerClientMain3.java       # Main class for Peer3 operations
-│   │   └── PeerServer.java            # Peer server to serve file requests
-│   │   └── PerformanceTester.java     # Measures performance for sequential and concurrent requests
-│   │   └── DirectoryWatcher.java      # Monitors peer directory for file changes
-│   └── downloads/                     # Folder where downloaded files are stored
-└── performance_log.csv                # Log file for performance testing
+
 Requirements
 Java 8+: Ensure Java is installed on your system.
 IntelliJ IDEA (or any other IDE with Java support).
