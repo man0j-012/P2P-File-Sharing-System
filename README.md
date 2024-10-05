@@ -6,7 +6,9 @@ The project consists of two main components:
 
 Indexing Server: The central server that keeps track of all registered peers and the files they are sharing. The indexing server manages peer registration, search, and deregistration requests. Peers connect to the indexing server to register their files, search for available files, and request a list of peers with the desired file.
 
-Peer Clients and Servers: Each peer operates as a client (which can request files from peers) and a server (which can provide files to others). Peers can:
+Peer Clients and Servers: Each peer operates as a client (which can request files from peers) and a server (which can provide files to others). 
+
+Peers can:
 
 Register the files they are sharing with the indexing server.
 Search for files that other peers are sharing.
