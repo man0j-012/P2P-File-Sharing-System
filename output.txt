@@ -1,0 +1,36 @@
+Server response: REGISTER_SUCCESS
+
+Choose an action:
+1. Search and Download a File
+2. Exit
+Enter choice:
+1
+Enter filename to search:
+file1.txt
+
+Found 3 peer(s) with the file:
+- Peer2 (IP: localhost, Port: 6001, Bandwidth: 100.0)
+Downloading from Peer2 at localhost:6001
+Receiving file of size 3402 bytes.
+File file1.txt downloaded successfully.
+Display file 'file1.txt'
+- Peer3 (IP: localhost, Port: 6002, Bandwidth: 100.0)
+Downloading from Peer3 at localhost:6002
+Receiving file of size 3402 bytes.
+File file1.txt downloaded successfully.
+Display file 'file1.txt'
+- Peer1 (IP: localhost, Port: 6000, Bandwidth: 100.0)
+Downloading from Peer1 at localhost:6000
+Receiving file of size 3402 bytes.
+File file1.txt downloaded successfully.
+Display file 'file1.txt'
+Search and download for file 'file1.txt' completed.
+
+Choose an action:
+1. Search and Download a File
+2. Exit
+Enter choice:
+2
+Deregistering files...
+Server response: DEREGISTER_SUCCESS
+Exiting...
